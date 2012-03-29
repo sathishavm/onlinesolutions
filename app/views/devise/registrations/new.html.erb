@@ -1,0 +1,238 @@
+ 
+ <style>
+ .LV_validation_message{
+    font-weight:bold;
+    margin:0 0 0 5px;
+}
+
+.LV_valid {
+    color:#00CC00;
+    float:left;
+}
+	
+.LV_invalid {
+    color:#CC0000;
+    float:left;
+}
+    
+.LV_valid_field,
+input.LV_valid_field:hover, 
+input.LV_valid_field:active,
+textarea.LV_valid_field:hover, 
+textarea.LV_valid_field:active {
+    border: 1px solid #00CC00;
+}
+    
+.LV_invalid_field, 
+input.LV_invalid_field:hover, 
+input.LV_invalid_field:active,
+textarea.LV_invalid_field:hover, 
+textarea.LV_invalid_field:active {
+    border: 1px solid #CC0000;
+}
+.allstyle
+{		display:block;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border:1px solid #ACE;
+	font-size:13px;
+	margin:0 0 5px;
+	padding:5px;
+	width:203px;
+  float:left;
+}
+body
+{
+background-color:#ddeef6;
+color:#789;
+font-size:11px;
+}
+#sign_up {
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	background:#39d url('/images/bg-btn-blue.png') repeat-x scroll 0 0;
+	border:1px solid #39D;
+	color:#fff;
+	text-shadow:0 -1px 0 #39d;
+	padding:4px 10px 5px;
+	font-size:11px;
+	margin:0 5px 0 0;
+	font-weight:bold;
+}
+#sign_up::-moz-focus-inner {
+padding:0;
+border:0;
+}
+#sign_up:hover, #sign_up:focus {
+	background-position:0 -5px;
+	cursor:pointer;
+}
+#pass_show
+{
+margin-left:6px;
+height:4px;
+	width: 181px;
+}
+#pass_all
+{
+display:none;
+float:right;
+margin-left:6px;
+}
+</style>
+  <script src="/javascripts/jquery.strength.js"></script>
+  <script src="/javascripts/password_strength.js"></script>
+  <script src="/javascripts/validation.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<script>
+function check()
+{
+var email= jQuery("#user_email").val();
+var password= jQuery("#user_password").val();
+var strength = PasswordStrength.test(email,password);
+if(strength.isGood())
+{
+jQuery("#pass_all").css('display','block');
+jQuery("#pass_mess span").replaceWith('<span>Good</span>');
+jQuery("#pass_mess").css('color','	#D4A017');
+jQuery("#pass_show").css('background','	#D4A017');
+}
+if(strength.isStrong())
+{
+jQuery("#pass_all").css('display','block');
+jQuery("#pass_mess span").replaceWith('<span>Strong</span>');
+jQuery("#pass_mess").css('color','#347C2C');
+jQuery("#pass_show").css('background','#347C2C');
+}
+if(strength.isWeak())
+{
+jQuery("#pass_all").css('display','block');
+jQuery("#pass_mess").css('color','#aa0033');
+jQuery("#pass_mess span").replaceWith('<span>Too Weak</span>');
+jQuery("#pass_show").css('background','#aa0033');
+}
+
+
+
+}
+</script>
+<center>
+<h2 style="color:orange">Sign up</h2>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+<table>
+<tr>
+<td>
+<%= label_tag('First Name') %>
+</td>
+<td>
+<%= f.text_field :firstname,:class=>"allstyle" %>
+</td>
+</tr>
+<tr>
+<td>
+<%= label_tag('Last Name') %>
+</td>
+<td>
+<%= f.text_field :lastname,:class=>"allstyle" %>
+</td>
+</tr>
+<tr>
+<td>
+<%= f.label :email %>
+</td>
+<td>
+<%= f.email_field :email,:class=>"allstyle" %>
+</td>
+</tr>
+<tr>
+<td>
+<%= f.label :password %>
+</td>
+<td>
+<div>
+  <div style="float:left"><%= f.password_field :password ,:class=>"allstyle", :onkeyup=>"check()"%></div>
+  
+  <div id="pass_all">
+ <center><div id="pass_mess"><span></span></div></center>
+  <div id="pass_show" ></div>
+  </div>
+  </div>
+</td>
+</tr>
+<tr>
+<td>
+<%= f.label :password_confirmation %>
+</td>
+<td>
+<%= f.password_field :password_confirmation ,:class=>"allstyle"%>
+</td>
+</tr>
+<tr>
+<td>
+<%= label_tag('Mobile') %>
+</td>
+<td>
+<%= f.text_field :mobile,:class=>"allstyle" %>
+</td>
+</tr>
+<tr>
+<td>
+<%= label_tag('Address') %>
+</td>
+<td>
+<%= f.text_area :address,:rows => 2, :cols => 60 ,:class=>"allstyle" %>
+</td>
+</tr>
+<tr>
+<td>
+<%= label_tag('Pincode') %>
+</td>
+<td>
+<%= f.text_field :pincode,:class=>"allstyle" %>
+</td>
+</tr>
+<tr>
+<td>
+<%= label_tag('State') %>
+</td>
+<td>
+<%= f.text_field :state ,:class=>"allstyle"%>
+</td>
+</tr>
+<tr>
+<td>
+<%= label_tag('Country') %>
+</td>
+<td>
+<%= f.text_field :country ,:class=>"allstyle"%>
+</td>
+</tr>
+</table>
+  <div><%= f.submit "Sign up",:id=>"sign_up" %></div>
+<% end %>
+</center>
+<script>
+var f1 = new LiveValidation('user_firstname');
+f1.add( Validate.Presence );
+var f2 = new LiveValidation('user_lastname');
+f2.add( Validate.Presence );
+var f19 = new LiveValidation('user_password_confirmation');
+f19.add( Validate.Confirmation, { match: 'user_password' } );
+var f4 = new LiveValidation('user_mobile');
+f4.add( Validate.Presence );
+f4.add( Validate.Length, { minimum: 10, maximum: 10 } );
+f4.add( Validate.Numericality );
+var f5 = new LiveValidation('user_pincode');
+f5.add( Validate.Presence );
+f5.add( Validate.Length, { minimum: 6, maximum: 6 } );
+f5.add( Validate.Numericality );
+var f6 = new LiveValidation('user_address');
+f6.add( Validate.Presence );
+var f6 = new LiveValidation('user_state');
+f6.add( Validate.Presence );
+var f7 = new LiveValidation('user_country');
+f7.add( Validate.Presence );
+</script>
