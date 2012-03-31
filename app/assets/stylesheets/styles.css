@@ -154,6 +154,7 @@ h3 span{
 .group1 {
 	float: left;
 	width: 274px;
+	height: 190px;
 	position: relative;
 	background:white;
 	padding:15px;
@@ -170,6 +171,7 @@ h3 span{
 .group2 {
 	float: left;
 	width: 274px;
+	height: 190px;
 	position: relative;
 	background:white;
 	padding:15px;
@@ -187,6 +189,7 @@ h3 span{
 .group3 {
 	float: right;
 	width: 274px;
+	height: 190px;
 	position: relative;
 	background:white;
 	padding:15px;
